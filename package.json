@@ -1,0 +1,50 @@
+{
+  "name": "test-automation-starter-kit",
+  "version": "1.0.0",
+  "description": "Professional Test Automation Starter Kit using Playwright, Cucumber, and TypeScript",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "clean:rerun": "node -e \"require('fs').writeFileSync('@rerun.txt','')\"",
+    "pretest": "npm run clean:rerun && npx ts-node src/helper/report/init.ts",
+    "test": "cucumber-js --config=config/cucumber.js || true",
+    "test:failed": "cucumber-js --config=config/cucumber.js -p rerun || true",
+    "test:retry": "npm run pretest && npm run test && npm run test:failed && npm run report",
+    "test:ui": "playwright test --ui",
+    "test:debug": "cross-env PWDEBUG=1 cucumber-js --config=config/cucumber.js",
+    "test:headed": "cross-env HEADED=true cucumber-js --config=config/cucumber.js",
+    "report": "npx ts-node src/helper/report/report.ts",
+    "report:open": "npx open test-results/cucumber-report.html",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix"
+  },
+  "keywords": [
+    "playwright",
+    "cucumber",
+    "typescript",
+    "test-automation",
+    "bdd",
+    "e2e-testing"
+  ],
+  "author": "Sureshprashanth",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.3.0",
+    "@playwright/test": "^1.52.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.5.0",
+    "eslint": "^9.0.0",
+    "fs-extra": "^11.3.3",
+    "glob": "^13.0.0",
+    "multiple-cucumber-html-reporter": "^3.9.2",
+    "reflect-metadata": "^0.2.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.0",
+    "winston": "^3.17.0"
+  }
+}
